@@ -82,7 +82,7 @@ const handleUserChat=(userMessage, className) =>{
 const handleBotChat=(className) =>{
     const newItem = document.createElement("p");
     let aiMessages = ["No problem! Let me connect you to a customer support agent.", "Hi there! I’m Ayobami. How can I help you?", "Ah, I see. How can I assist you today?", "I'm here to help! What do you need?"];
-    let count =1
+    let count =2
     for (let aiMessage of aiMessages){
         newItem.textContent = aiMessages[count];
     };

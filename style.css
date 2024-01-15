@@ -89,7 +89,10 @@ body{
     font-size: 15px;
     padding: 0 20px;
     height: 500px;
-    position: sticky;
+    overflow-y: scroll;
+}
+.chats-widget::-webkit-scrollbar {
+    width: 1px;
 }
 .one{
     margin-top: 55px;
