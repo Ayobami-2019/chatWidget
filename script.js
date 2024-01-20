@@ -5,106 +5,106 @@ const getImage=document.getElementById("showIMG");
 const chatDiv=document.getElementById("chats-widget");
 const sentMessage=document.getElementsByClassName("outgoing-mesasges");
 const receivedMessage=document.getElementsByClassName("incoming-mesasges");
+const botImg=document.getElementById("botImg")
 
-//A function that rotate the arrow icon
-const changeButton =() =>{
-    if (chats.style.display=== "none"){
-        getImage.style.rotate="180deg"
-    } else if( chats.style.display=== "block"){
-        getImage.style.rotate="0deg"
-    }
-} 
-//A function that show or hide the chat widget when the button is clicked
+
+//A function that show or hide the chat widget and rotate the arrow when the button is clicked
 const showHide = () =>{
-    changeButton()
+    // changeButton()
     if (chats.style.display=== "block"){
         chats.style.display="none";
+        getImage.style.rotate="0deg"
     } else{
         chats.style.display = "block";
+        getImage.style.rotate="180deg"
     }
     
 }
 showChats.addEventListener("click", showHide)
 
 //A funtion that pop up what is in Array
-// const userPopUp =() => {
-//     let count=0;
-//     let userMessages=  ["Can I talk to someone please?", "Oh finally a human, wohoo!", "whatsup"]
-//     for (let userMessage of userMessages){
-//         console.log(userMessage)
-//         userInput.value=userMessage;
-//     };
-// }
-// userInput.addEventListener("focus", userPopUp)
-
-// A function that allows enter to send
-userInput.addEventListener("keydown", (e) =>{ 
-    if (e.keyCode === 13){
-        e.preventDefault()
-        handleChat();
-        userInput.value=''
+const userPopUp =() => {
+    if(count<userMessages.length){
+        userInput.value=userMessages[count];
     }
-})
+    else{
+        userInput.value=userInput.value
+    }
+    
+}
+userInput.addEventListener("focus", userPopUp)
 
 //A fuction that handles the chat
 const handleChat =() => {
-    let userMessage = userInput.value;
-    if(userMessage){
-        handleUserChat (userMessage, "outgoing-messages");
-        setTimeout(() => {
-            handleBotChat("incoming-messages");
-            }, 3000) 
-    } 
-    // else{
-    //     handleUserChat (userMessage, "outgoing-messages");
-    // }
+  handleUserChat(userInput.value, "outgoing-messages");
+  setTimeout(() => {
+    handleBotChat(aiMessages[count], "incoming-messages");
+  }, 3000) 
+    count++
 }
-
+userInput.addEventListener("keydown", (e) =>{ 
+    // A function that allows enter to send
+    if (e.keyCode === 13){
+        e.preventDefault()
+        handleChat();
+        userInput.value=""
+    }    
+})
 //A fuction that handles the User messages
-const handleUserChat=(userMessage, className) =>{
+let userMessages=  ["Can I talk to someone please?", "Oh finally a human, wohoo!"]
+count=0
+const handleUserChat=(message, className) =>{
     const wrapper = document.createElement("div");
     const newItem=document.createElement("p");
     wrapper.classList.add("newItem", className);
-    newItem.textContent = userMessage;
-    
+    newItem.textContent = message;
     wrapper.appendChild(newItem);
-    if(new Date().getMinutes()<1){
-        const time = document.createElement("p");
-        wrapper.classList.add("time")
-        time.textContent = "Just now・Not seen yet"
-        wrapper.appendChild(time);
-    }
+    // if(new Date().getMinutes()<1){
+    //     const time = document.createElement("p");
+    //     wrapper.classList.add("time")
+    //     time.textContent = "Just now・Not seen yet"
+    //     wrapper.appendChild(time);
+    // }
     chatDiv.appendChild(wrapper);
 }
 
 //A fuction that handles the bot messages
+let aiMessages = ["No problem! Let me connect you to a customer support agent.", "Hi there! I’m Ayobami. How can I help you?", "Ah, I see. How can I assist you today?", "I'm here to help! What do you need?"];
 
-const handleBotChat=(className) =>{
+const handleBotChat=(message, className) =>{ 
     const newItem = document.createElement("p");
-    let aiMessages = ["No problem! Let me connect you to a customer support agent.", "Hi there! I’m Ayobami. How can I help you?", "Ah, I see. How can I assist you today?", "I'm here to help! What do you need?"];
-    let count =2
-    for (let aiMessage of aiMessages){
-        newItem.textContent = aiMessages[count];
-    };
-    count++
+    newItem.classList.add("message");
     const wrapper = document.createElement("div");
+    const human= document.createElement("div");
+    human.classList.add("human");
     const newImg = document.createElement("img");
-    wrapper.classList.add("newImg", className);
-    wrapper.classList.add("newItem", className);
-    newImg.innerHTML= `<img src="images/bot.png" alt="">`;
-    
-    
-    wrapper.appendChild(newImg);
-    wrapper.appendChild(newItem);
-    if(new Date().getMinutes()<1){
+    newImg.setAttribute("src", "images/bot.png");
+    const humanImg=document.createElement("img");
+    humanImg.setAttribute("src", "images/lady.png");
+    wrapper.classList.add("incomingItem", className);
+    newItem.textContent = message
+    if(aiMessages[count]===0){
+        human.appendChild(newImg);
+        human.appendChild(newItem);
+        wrapper.appendChild(human);
+    }else{
+        human.appendChild(humanImg);
+        human.appendChild(newItem);
         const time = document.createElement("p");
-        wrapper.classList.add("time", className);
-        time.textContent = "Hannah・Just now"
+        // wrapper.classList.add("time", className);
+        time.textContent = "Hannah・Just now";
+        time.classList.add("sender");
+        wrapper.appendChild(human);
         wrapper.appendChild(time);
     }
+    
+    // if(aiMessages[count]===)
+    // if(new Date().getMinutes()<1){
+    //    
+    // }
+    
     chatDiv.appendChild(wrapper);
 }
-
 // function getTime(){
 //     let today = new Date();
 //     minutes = today.getMinutes();
@@ -117,3 +117,4 @@ const handleBotChat=(className) =>{
     // }
     // let time = hours+ ":" + minutes;
     // return time;
+

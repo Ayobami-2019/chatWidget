@@ -97,7 +97,7 @@ body{
 .one{
     margin-top: 55px;
 }
-.incoming-messages{
+.incoming-messages, .human{
     display: flex;
     flex-direction: row;
     color: #000000;
@@ -105,13 +105,21 @@ body{
     gap: 10px;
     margin-bottom: 20px;
 }
-.incoming-messages img{
+.incomingItem{
+    display: flex;
+    flex-direction: column;
+    color: #000000;
+    width: fit-content;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.incoming-messages img, .incoming-messages .human img{
     display: flex;
     align-self: flex-end;
     width: 32px;
     height: 32px;
 }
-.incoming-messages p{
+.incoming-messages .message{
     padding: 16px 18px;
     background-color: #F2F2F2;
     border-radius: 10px;
@@ -136,9 +144,14 @@ body{
 .sender{
     color: #737376;
     font-size: 13px;
+    margin-bottom: 10px;  
+}
+.incoming-messages .sender{
+    color: #737376;
+    font-size: 13px;
     margin-bottom: 10px;
-    
-    
+    background-color: none;
+    margin-top: 0;
 }
 .human .outgoing-messages-sender{
     display: flex;
